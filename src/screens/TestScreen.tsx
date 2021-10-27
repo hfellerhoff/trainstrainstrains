@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 
 const TestScreen = () => {
-  return <Text>Screen Two</Text>;
+  return <Text>You made it!</Text>;
 };
 
 export default TestScreen;
