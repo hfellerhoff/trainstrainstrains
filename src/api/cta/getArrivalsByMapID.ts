@@ -1,6 +1,7 @@
 // @ts-ignore
 import XMLParser from 'react-xml-parser';
 import {parseXML} from '../../util/parseXML';
+import {CTA_API_KEY} from './constants';
 import {CTAResponse} from './types';
 
 export type ArrivalData = {
@@ -30,9 +31,11 @@ export type ArrivalData = {
   }[];
 };
 
-export const getArrivalsByStation = async (station_id: string | number) => {
+// For more information:
+// https://www.transitchicago.com/developers/ttdocs/#_Toc296199903
+export const getArrivalsByMapID = async (map_id: string | number) => {
   const res = await fetch(
-    `https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=bf2353501026404baf975e339a457de9&mapid=${station_id}`,
+    `https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${CTA_API_KEY}&mapid=${map_id}`,
   );
 
   const text = await res.text();

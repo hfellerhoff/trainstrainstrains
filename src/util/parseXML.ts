@@ -1,6 +1,8 @@
 import {XMLItem} from '../api/cta/types';
 
 type ParseXMLOptions = {
+  // XML can have multiple keys with the same name; when using this function,
+  // list those names in this array to avoid overwriting data
   duplicateKeys: string[];
 };
 

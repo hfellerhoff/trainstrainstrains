@@ -7,17 +7,14 @@ import {
   Button,
   Text,
 } from 'react-native';
-import {
-  ArrivalData,
-  getArrivalsByStation,
-} from '../api/cta/getArrivalsByStation';
+import {getTrainsByRoute} from '../api/cta/getTrainsByRoute';
 
 const SampleFetch = () => {
-  const [arrivals, setArrivals] = useState<ArrivalData>();
+  const [data, setData] = useState<any>();
 
   const fetchData = async () => {
     try {
-      setArrivals(await getArrivalsByStation(41300)); // loyola's station to dan ryan
+      setData(await getTrainsByRoute('Red')); // loyola's station to dan ryan
     } catch (error) {
       console.error(error);
     }
@@ -29,7 +26,7 @@ const SampleFetch = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <Button title="Fetch Data" onPress={fetchData} />
-        <Text>{JSON.stringify(arrivals, null, 2)}</Text>
+        <Text>{JSON.stringify(data, null, 2)}</Text>
       </ScrollView>
     </SafeAreaView>
   );
