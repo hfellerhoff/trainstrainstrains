@@ -45,7 +45,5 @@ export const getTrainsByRoute = async (route: string) => {
     duplicateKeys: ['train'],
   }) as CTAResponse<TrainLocationData>;
 
-  console.log(JSON.stringify(data, null, 2));
-
   return data.ctatt;
 };
