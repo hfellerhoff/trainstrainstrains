@@ -23,7 +23,6 @@ const StationScreen = ({route}: Props) => {
   return (
     <View style={styles.container}>
       <ArrivalList arrivals={arrivals} onRefresh={updateArrivals} />
-      {/* <Text>{JSON.stringify(arrivals, null, 2)}</Text> */}
     </View>
   );
 };

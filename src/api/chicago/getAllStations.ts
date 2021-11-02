@@ -1,6 +1,6 @@
 // https://data.cityofchicago.org/resource/8pix-ypme.json
 
-type StationData = {
+export type StationData = {
   stop_id: string;
   direction_id: string;
   stop_name: string;
@@ -28,15 +28,11 @@ type StationData = {
   '@computed_region_43wa_7qmu': string;
 };
 
-export const fetchStationData = async () => {
+export const getAllStations = async () => {
   const res = await fetch(
     'https://data.cityofchicago.org/resource/8pix-ypme.json',
   );
   const data: StationData[] = await res.json();
-
-  data.map(station =>
-    console.log(station.stop_name, station.map_id, station.stop_id),
-  );
 
   return data;
 };

@@ -3,7 +3,6 @@ import {Colors} from '../colors';
 
 export const getBackgroundFromRoute = (rt: string): ViewStyle => {
   let color = Colors.lines.red;
-  console.log(rt);
   switch (rt.toLowerCase()) {
     case 'red':
       color = Colors.lines.red;
