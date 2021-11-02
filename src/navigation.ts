@@ -2,4 +2,7 @@
 export type RootStackParamList = {
   Home: undefined;
   'Screen 2': undefined;
+  Station: {
+    mapID: string;
+  };
 };

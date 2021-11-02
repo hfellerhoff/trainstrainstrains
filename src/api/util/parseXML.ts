@@ -1,4 +1,4 @@
-import {XMLItem} from '../api/cta/types';
+import {XMLItem} from '../cta/types';
 
 type ParseXMLOptions = {
   // XML can have multiple keys with the same name; when using this function,

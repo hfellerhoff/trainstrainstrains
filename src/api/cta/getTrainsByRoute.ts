@@ -1,6 +1,6 @@
 // @ts-ignore
 import XMLParser from 'react-xml-parser';
-import {parseXML} from '../../util/parseXML';
+import {parseXML} from '../util/parseXML';
 import {CTA_API_KEY} from './constants';
 import {CTAResponse} from './types';
 

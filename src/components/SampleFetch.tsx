@@ -4,17 +4,17 @@ import {
   SafeAreaView,
   StatusBar,
   ScrollView,
-  Button,
   Text,
 } from 'react-native';
-import {getTrainsByRoute} from '../api/cta/getTrainsByRoute';
+import Button from './core/Button';
+import {getArrivalsByMapID} from '../api/cta/getArrivalsByMapID';
 
 const SampleFetch = () => {
   const [data, setData] = useState<any>();
 
   const fetchData = async () => {
     try {
-      setData(await getTrainsByRoute('Red')); // loyola's station to dan ryan
+      setData(await getArrivalsByMapID('41300')); // loyola's station to dan ryan
     } catch (error) {
       console.error(error);
     }
