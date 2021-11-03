@@ -10,7 +10,9 @@ export const searchForStations = async (query: string) => {
   const results = data.filter(station => {
     const mapIDAdded = foundMapIDs.includes(station.map_id);
     const bool =
-      station.station_descriptive_name.includes(query) && !mapIDAdded;
+      station.station_descriptive_name
+        .toLowerCase()
+        .includes(query.toLowerCase()) && !mapIDAdded;
     if (!mapIDAdded) {
       foundMapIDs.push(station.map_id);
     }
