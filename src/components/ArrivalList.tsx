@@ -76,12 +76,21 @@ const ArrivalList = ({arrivals, onRefresh}: Props) => {
     const unparsedSections: ArrivalDataETA[][] =
       Object.values(unparsedSectionsJSON);
 
-    return unparsedSections.map(section => {
-      return {
-        title: getFullRouteName(section[0].rt),
-        data: section,
-      };
-    });
+    if (unparsedSections.length === 1) {
+      return unparsedSections.map(section => {
+        return {
+          title: '',
+          data: section,
+        };
+      });
+    } else {
+      return unparsedSections.map(section => {
+        return {
+          title: getFullRouteName(section[0].rt),
+          data: section,
+        };
+      });
+    }
   }
 
   return (
@@ -89,11 +98,17 @@ const ArrivalList = ({arrivals, onRefresh}: Props) => {
       style={styles.list}
       sections={getSections(arrivals.eta)}
       renderItem={renderItem}
-      keyExtractor={item => item.rn}
+      keyExtractor={item => `${item.arrT}-${item.rn}`}
       renderSectionHeader={({section: {title}}) => (
-        <View style={styles.listSection}>
-          <Text style={styles.listSectionText}>{title}</Text>
-        </View>
+        <>
+          {title ? (
+            <View style={styles.listSection}>
+              <Text style={styles.listSectionText}>{title}</Text>
+            </View>
+          ) : (
+            <></>
+          )}
+        </>
       )}
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />

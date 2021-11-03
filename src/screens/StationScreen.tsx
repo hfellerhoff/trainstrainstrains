@@ -7,7 +7,7 @@ import {RootStackParamList} from '../navigation';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Station'>;
 
-const StationScreen = ({route}: Props) => {
+const StationScreen = ({route, navigation}: Props) => {
   const [arrivals, setArrivals] = useState<ArrivalData>();
 
   const updateArrivals = async () => {
@@ -16,6 +16,9 @@ const StationScreen = ({route}: Props) => {
   };
 
   useEffect(() => {
+    navigation.setOptions({
+      title: route.params.title,
+    });
     updateArrivals();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

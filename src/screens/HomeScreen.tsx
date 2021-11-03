@@ -14,6 +14,7 @@ const HomeScreen = ({navigation}: Props) => {
         onPress={() =>
           navigation.navigate('Station', {
             mapID: '40380',
+            title: 'Howard',
           })
         }
       />

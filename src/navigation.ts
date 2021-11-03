@@ -4,5 +4,7 @@ export type RootStackParamList = {
   'Screen 2': undefined;
   Station: {
     mapID: string;
+    title: string;
   };
+  Search: undefined;
 };

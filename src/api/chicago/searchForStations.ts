@@ -6,8 +6,16 @@ export const searchForStations = async (query: string) => {
     data = await getAllStations();
   }
 
+  let foundMapIDs: string[] = [];
   const results = data.filter(station => {
-    return station.station_descriptive_name.includes(query);
+    const mapIDAdded = foundMapIDs.includes(station.map_id);
+    const bool =
+      station.station_descriptive_name.includes(query) && !mapIDAdded;
+    if (!mapIDAdded) {
+      foundMapIDs.push(station.map_id);
+    }
+
+    return bool;
   });
 
   return results;
