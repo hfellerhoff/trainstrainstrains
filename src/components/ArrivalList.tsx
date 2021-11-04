@@ -14,6 +14,7 @@ import {
 import {ArrivalData, ArrivalDataETA} from '../api/cta/getArrivalsByMapID';
 import {getFullRouteName} from '../api/util/getFullRouteName';
 import {getBackgroundFromRoute} from '../styles/utils/getBackgroundFromRoute';
+import {getColorFromRoute} from '../styles/utils/getColorFromRoute';
 
 interface Props {
   arrivals: ArrivalData | undefined;
@@ -35,10 +36,13 @@ const ArrivalListItem = ({eta}: ItemProps) => {
       ? 'Due'
       : `${minutesUntil} min`;
 
+  const backgroundStyle = getBackgroundFromRoute(eta.rt);
+  const textStyle = getColorFromRoute(eta.rt);
+
   return (
-    <View style={[styles.listItem, getBackgroundFromRoute(eta.rt)]}>
-      <Text style={styles.listItemText}>{eta.destNm}</Text>
-      <Text style={styles.listItemText}>{timeUntilText}</Text>
+    <View style={[styles.listItem, backgroundStyle]}>
+      <Text style={[styles.listItemText, textStyle]}>{eta.destNm}</Text>
+      <Text style={[styles.listItemText, textStyle]}>{timeUntilText}</Text>
     </View>
   );
 };
@@ -57,7 +61,11 @@ const ArrivalList = ({arrivals, onRefresh}: Props) => {
   };
 
   if (!arrivals) {
-    return <ActivityIndicator />;
+    return (
+      <View style={styles.loadingView}>
+        <ActivityIndicator />
+      </View>
+    );
   }
 
   function getSections(
@@ -120,6 +128,9 @@ const ArrivalList = ({arrivals, onRefresh}: Props) => {
 export default ArrivalList;
 
 const styles = StyleSheet.create({
+  loadingView: {
+    padding: 32,
+  },
   list: {
     height: '100%',
   },
