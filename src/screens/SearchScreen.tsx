@@ -19,6 +19,7 @@ import {searchForStations} from '../api/chicago/searchForStations';
 import Loading from '../components/Loading';
 import StationColors from '../components/StationColors';
 import {RootStackParamList} from '../navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
 
@@ -26,7 +27,9 @@ type ItemProps = {
   data: StationData;
   navigation: NativeStackNavigationProp<RootStackParamList, 'Search'>;
 };
+
 const SearchItem = ({data, navigation}: ItemProps) => {
+  const [favorite, setFavorite] = useState("star-outline");
   return (
     <Pressable
       style={styles.item}
@@ -36,6 +39,7 @@ const SearchItem = ({data, navigation}: ItemProps) => {
           title: data.station_name,
         })
       }>
+      <Icon name={favorite} size={20} color="#fcb103" style={styles.star} onPress={()=> {if (favorite === "star-outline") {setFavorite("star")} else {setFavorite("star-outline")}}}/>
       <View style={styles.itemTitleContainer}>
         <Text style={styles.title}>{data.station_name}</Text>
       </View>
@@ -108,6 +112,9 @@ const styles = StyleSheet.create({
   },
   searchList: {
     marginBottom: 80,
+  },
+  star: {
+    paddingRight:10,
   },
   item: {
     backgroundColor: 'white',
