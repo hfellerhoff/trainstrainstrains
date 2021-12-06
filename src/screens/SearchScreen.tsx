@@ -28,8 +28,28 @@ type ItemProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Search'>;
 };
 
+
 const SearchItem = ({data, navigation}: ItemProps) => {
-  const [favorite, setFavorite] = useState("star-outline");
+  const [star, setStar] = useState("star-outline");
+  const [favorites, setFavorites] = useState<any[]>([]);
+
+  // const addFav = (props: any) => {
+  //   let array = favorites;
+  //   let addArray = true;
+  //   array.map((item: any, key: number) => {
+  //     if 
+  //   })
+  // }
+  const toggleFavorite = (star: string, stationName: any, ID: any) => {
+    if (star === "star-outline") {
+      setStar("star")
+      setFavorites([...favorites, {stationName, ID}]);
+      console.log(favorites);
+    } else {
+      setStar("star-outline");
+    }
+  };
+
   return (
     <Pressable
       style={styles.item}
@@ -39,7 +59,7 @@ const SearchItem = ({data, navigation}: ItemProps) => {
           title: data.station_name,
         })
       }>
-      <Icon name={favorite} size={20} color="#fcb103" style={styles.star} onPress={()=> {if (favorite === "star-outline") {setFavorite("star")} else {setFavorite("star-outline")}}}/>
+      <Icon name={star} size={20} color="#ffc800" style={styles.star} onPress={()=> {toggleFavorite(star, data.station_name, data.map_id)}}/>
       <View style={styles.itemTitleContainer}>
         <Text style={styles.title}>{data.station_name}</Text>
       </View>

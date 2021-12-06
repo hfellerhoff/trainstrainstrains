@@ -43,7 +43,15 @@ const ArrivalListItem = ({eta}: ItemProps) => {
 
   return (
     <View style={[styles.listItem, backgroundStyle]}>
-      <Icon name={favorite} size={20} color="#fcb103" style={styles.star} onPress={()=> {if (favorite === "star-outline") {setFavorite("star")} else {setFavorite("star-outline")}}}/>
+      <Icon name={favorite} size={20} color="#ffdb38" style={styles.star} 
+        onPress={()=> {
+          if (favorite === "star-outline") {
+            setFavorite("star") 
+          } else {
+            setFavorite("star-outline")
+          }
+        }}
+      />
       <Text style={[styles.listItemText, textStyle]}>{eta.destNm}</Text>
       <Text style={[styles.listItemText, textStyle]}>{timeUntilText}</Text>
     </View>
