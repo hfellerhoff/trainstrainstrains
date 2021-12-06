@@ -16,6 +16,8 @@ import {getFullRouteName} from '../api/util/getFullRouteName';
 import {getBackgroundFromRoute} from '../styles/utils/getBackgroundFromRoute';
 import {getColorFromRoute} from '../styles/utils/getColorFromRoute';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {favorites as favoritesAtom} from '../recoil/atoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 interface Props {
   arrivals: ArrivalData | undefined;
@@ -27,6 +29,8 @@ type ItemProps = {
 };
 const ArrivalListItem = ({eta}: ItemProps) => {
   const [favorite, setFavorite] = useState("star-outline");
+  const [faves, addFaves] = useRecoilState(favoritesAtom);
+  const setFaves = useSetRecoilState(favoritesAtom);
   const now = dayjs();
   const arrivalTime = dayjs(eta.arrT);
   const minutesUntil = arrivalTime.diff(now, 'm');
@@ -47,6 +51,11 @@ const ArrivalListItem = ({eta}: ItemProps) => {
         onPress={()=> {
           if (favorite === "star-outline") {
             setFavorite("star") 
+            setFaves((currentState: any) => [
+              ...currentState, 
+              {name: eta.destNm, time: timeUntilText}
+            ])
+            console.log(faves);
           } else {
             setFavorite("star-outline")
           }
