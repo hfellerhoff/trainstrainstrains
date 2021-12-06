@@ -51,9 +51,9 @@ const ArrivalListItem = ({eta}: ItemProps) => {
         onPress={()=> {
           if (favorite === "star-outline") {
             setFavorite("star") 
-            setFaves((currentState: any) => [
-              ...currentState, 
-              {name: eta.destNm, time: timeUntilText}
+            setFaves((faves: any) => [
+              ...faves, 
+              {name: eta.destNm, time: timeUntilText, style: backgroundStyle, textStyle: textStyle}
             ])
             console.log(faves);
           } else {

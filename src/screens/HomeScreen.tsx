@@ -11,9 +11,6 @@ import {favorites as favoritesAtom} from '../recoil/atoms';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-// const backgroundStyle = getBackgroundFromRoute(eta.rt);
-// const textStyle = getColorFromRoute(eta.rt);
-
 const HomeScreen = ({navigation}: Props) => {
   const [faves, setFaves] = useRecoilState(favoritesAtom);
   return (
@@ -27,7 +24,7 @@ const HomeScreen = ({navigation}: Props) => {
           })
         }
       />
-        {/* {faves.map((fave) => (
+        {faves.map((fave) => (
           <View style={[styles.listItem, backgroundStyle]}>
           <Icon name={'star'} size={20} color="#ffdb38" style={styles.star} 
             onPress={()=> {
@@ -41,7 +38,7 @@ const HomeScreen = ({navigation}: Props) => {
           <Text style={[styles.listItemText, textStyle]}>{eta.destNm}</Text>
           <Text style={[styles.listItemText, textStyle]}>{timeUntilText}</Text>
         </View>
-        ))} */}
+        ))}
     </View>
   );
 };
