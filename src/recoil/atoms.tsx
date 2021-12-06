@@ -1,8 +1,9 @@
-import React from 'react';
 import {atom} from 'recoil';
 
-export const favorites = atom({
-    key: 'favorites',
-    default: {}
-  });
+// Array of map_id[]
+export type Favorites = Record<string, boolean>;
 
+export const favoritesAtom = atom<Favorites>({
+  key: 'favorites',
+  default: {},
+});

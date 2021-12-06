@@ -1,21 +1,18 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import { atom, useRecoilState } from 'recoil';
-import {Text, StyleSheet, View} from 'react-native';
-import {getBackgroundFromRoute} from '../styles/utils/getBackgroundFromRoute';
-import {getColorFromRoute} from '../styles/utils/getColorFromRoute';
-import Button from '../components/core/Button';
+import {StyleSheet, View, Text} from 'react-native';
 import {RootStackParamList} from '../navigation';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {favorites as favoritesAtom} from '../recoil/atoms';
+import useFavorites from '../hooks/useFavorites';
+import StationItem from '../components/StationItem';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({navigation}: Props) => {
-  const [faves, setFaves] = useRecoilState(favoritesAtom);
+  const {favorites} = useFavorites({shouldSyncWithLocalStorage: true});
+
   return (
     <View style={styles.container}>
-      <Button
+      {/* <Button
         title="Go to Station View"
         onPress={() =>
           navigation.navigate('Station', {
@@ -23,22 +20,11 @@ const HomeScreen = ({navigation}: Props) => {
             title: 'Clark/Lake',
           })
         }
-      />
-        {faves.map((fave) => (
-          <View style={[styles.listItem, backgroundStyle]}>
-          <Icon name={'star'} size={20} color="#ffdb38" style={styles.star} 
-            onPress={()=> {
-              if (favorite === "star-outline") {
-                setFavorite("star") 
-              } else {
-                setFavorite("star-outline")
-              }
-            }}
-          />
-          <Text style={[styles.listItemText, textStyle]}>{eta.destNm}</Text>
-          <Text style={[styles.listItemText, textStyle]}>{timeUntilText}</Text>
-        </View>
-        ))}
+      /> */}
+      <Text style={styles.listSectionText}>Favorites</Text>
+      {Object.entries(favorites).map(([map_id]) => (
+        <StationItem map_id={map_id} navigation={navigation} key={map_id} />
+      ))}
     </View>
   );
 };
@@ -47,7 +33,7 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    // padding: 16,
   },
   loadingView: {
     padding: 32,
@@ -63,13 +49,15 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   star: {
-    paddingRight:10,
+    paddingRight: 10,
   },
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
+
+    backgroundColor: 'gray',
   },
   listItemText: {
     color: 'white',

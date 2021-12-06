@@ -1,15 +1,10 @@
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {
   FlatList,
   StyleSheet,
   TextInput,
   View,
-  Text,
-  Pressable,
   ListRenderItem,
   Platform,
 } from 'react-native';
@@ -17,56 +12,10 @@ import {Search} from 'react-native-feather';
 import {StationData} from '../api/chicago/getAllStations';
 import {searchForStations} from '../api/chicago/searchForStations';
 import Loading from '../components/Loading';
-import StationColors from '../components/StationColors';
 import {RootStackParamList} from '../navigation';
-import Icon from 'react-native-vector-icons/Ionicons';
+import StationItem from '../components/StationItem';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
-
-type ItemProps = {
-  data: StationData;
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Search'>;
-};
-
-
-const SearchItem = ({data, navigation}: ItemProps) => {
-  const [star, setStar] = useState("star-outline");
-  const [favorites, setFavorites] = useState<any[]>([]);
-
-  // const addFav = (props: any) => {
-  //   let array = favorites;
-  //   let addArray = true;
-  //   array.map((item: any, key: number) => {
-  //     if 
-  //   })
-  // }
-  const toggleFavorite = (star: string, stationName: any, ID: any) => {
-    if (star === "star-outline") {
-      setStar("star")
-      setFavorites([...favorites, {stationName, ID}]);
-      console.log(favorites);
-    } else {
-      setStar("star-outline");
-    }
-  };
-
-  return (
-    <Pressable
-      style={styles.item}
-      onPress={() =>
-        navigation.navigate('Station', {
-          mapID: data.map_id,
-          title: data.station_name,
-        })
-      }>
-      <Icon name={star} size={20} color="#ffc800" style={styles.star} onPress={()=> {toggleFavorite(star, data.station_name, data.map_id)}}/>
-      <View style={styles.itemTitleContainer}>
-        <Text style={styles.title}>{data.station_name}</Text>
-      </View>
-      <StationColors station={data} />
-    </Pressable>
-  );
-};
 
 const SearchScreen = ({navigation}: Props) => {
   const [searchInput, setSearchInput] = useState('');
@@ -81,7 +30,12 @@ const SearchScreen = ({navigation}: Props) => {
   };
 
   const renderItem: ListRenderItem<StationData> = ({item}) => (
-    <SearchItem data={item} navigation={navigation} />
+    <StationItem
+      map_id={item.map_id}
+      data={item}
+      navigation={navigation}
+      key={item.map_id}
+    />
   );
 
   return (
@@ -134,7 +88,7 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   star: {
-    paddingRight:10,
+    paddingRight: 10,
   },
   item: {
     backgroundColor: 'white',
