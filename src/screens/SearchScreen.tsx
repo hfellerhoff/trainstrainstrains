@@ -40,6 +40,7 @@ const SearchScreen = ({navigation}: Props) => {
 
   return (
     <View>
+      
       <View style={styles.searchInput}>
         <Search
           color="black"
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   },
   itemTitleContainer: {
     flex: 1,
-    marginRight: 20,
+    marginRight: 20
   },
   title: {},
 });

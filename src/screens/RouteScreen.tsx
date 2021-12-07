@@ -6,6 +6,7 @@ import {
   View,
   ListRenderItem,
   Platform,
+  StatusBar
 } from 'react-native';
 import {StationData} from '../api/chicago/getAllStations';
 import {searchForStations} from '../api/chicago/searchForStations';
@@ -44,6 +45,10 @@ const RouteScreen = ({navigation, route}: Props) => {
       headerStyle: {
         backgroundColor: Colors.lines[route.params.route.toLowerCase()],
       },
+      headerTitleStyle: {
+        color: route.params.route !== 'Yellow' ? 'white' : 'black',
+        fontSize: 18,
+      },
       headerTintColor: route.params.route !== 'Yellow' ? 'white' : 'black',
     });
     handleSearch();
@@ -60,6 +65,7 @@ const RouteScreen = ({navigation, route}: Props) => {
 
   return (
     <View>
+      <StatusBar barStyle={route.params.route !== 'Yellow' ? 'light-content' : 'dark-content'} backgroundColor={Colors.primary} />
       {isLoading ? <Loading /> : <></>}
       <FlatList
         data={searchData}
