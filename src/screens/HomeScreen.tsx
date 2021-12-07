@@ -12,12 +12,17 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 const HomeScreen = ({navigation}: Props) => {
   const {favorites} = useFavorites({shouldSyncWithLocalStorage: true});
 
+  const hasFavorites = Object.values(favorites).length > 0;
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.listSectionText}>Favorites</Text>
-      {Object.entries(favorites).map(([map_id]) => (
-        <StationItem map_id={map_id} navigation={navigation} key={map_id} />
-      ))}
+      {hasFavorites && (
+        <>
+          <Text style={styles.listSectionText}>Favorites</Text>
+          {Object.entries(favorites).map(([map_id]) => (
+            <StationItem map_id={map_id} navigation={navigation} key={map_id} />
+          ))}
+        </>
+      )}
       <View>
         <Text style={styles.listSectionText}>All Lines</Text>
       </View>

@@ -38,44 +38,49 @@ const useFavorites = (
     }
   }, []);
 
-  useEffect(() => {
-    const setLocalStorageValues = async () => {
-      try {
-        const favoritesToSave = Object.entries(favorites).reduce(
-          (acc, [map_id, isFavorited]) => {
-            if (isFavorited) {
-              acc[map_id] = true;
-            }
-            return acc;
-          },
-          {} as Favorites,
-        );
-        await AsyncStorage.setItem(
-          FAVORITES_LOCAL_STORAGE_KEY,
-          JSON.stringify(favoritesToSave),
-        );
-      } catch (e) {
-        console.error(
-          `Error setting LocalStorage value ${FAVORITES_LOCAL_STORAGE_KEY}.`,
-        );
-      }
-    };
-
-    if (favorites) {
-      setLocalStorageValues();
+  const setLocalStorageValues = async (values: Favorites) => {
+    try {
+      const favoritesToSave = Object.entries(values).reduce(
+        (acc, [map_id, isFavorited]) => {
+          if (isFavorited) {
+            acc[map_id] = true;
+          }
+          return acc;
+        },
+        {} as Favorites,
+      );
+      await AsyncStorage.setItem(
+        FAVORITES_LOCAL_STORAGE_KEY,
+        JSON.stringify(favoritesToSave),
+      );
+    } catch (e) {
+      console.error(
+        `Error setting LocalStorage value ${FAVORITES_LOCAL_STORAGE_KEY}.`,
+      );
     }
-  }, [favorites, setFavorites]);
+  };
 
   const addFavorite = (id: string) => {
     setIsSettingFavorites(true);
-    setFavorites(f => ({...f, [id]: true}));
+    setFavorites(f => {
+      const newFavorites = {...f, [id]: true};
+      setLocalStorageValues(newFavorites);
+      return newFavorites;
+    });
     setTimeout(() => setIsSettingFavorites(false), 500);
   };
 
   const removeFavorite = (id: string) => {
     setIsSettingFavorites(true);
     setFavorites(f => {
-      return {...f, [id]: false};
+      const filteredFavorites = Object.entries(f).reduce((acc, [itemID]) => {
+        if (itemID !== id) {
+          acc[itemID] = true;
+        }
+        return acc;
+      }, {} as Favorites);
+      setLocalStorageValues(filteredFavorites);
+      return filteredFavorites;
     });
     setTimeout(() => setIsSettingFavorites(false), 500);
   };

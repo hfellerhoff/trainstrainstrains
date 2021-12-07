@@ -24,7 +24,18 @@ const RouteScreen = ({navigation, route}: Props) => {
     const handleSearch = async () => {
       setIsLoading(true);
       const data = await searchForStations(route.params.route);
-      setSearchData(data);
+      setSearchData(
+        data.sort((a, b) => {
+          if (
+            a.location.latitude + a.location.longitude >
+            b.location.latitude + b.location.longitude
+          ) {
+            return -1;
+          } else {
+            return 1;
+          }
+        }),
+      );
       setIsLoading(false);
     };
 
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   searchList: {
-    marginBottom: 32,
+    marginBottom: Platform.OS === 'ios' ? 32 : 0,
   },
   star: {
     paddingRight: 10,
