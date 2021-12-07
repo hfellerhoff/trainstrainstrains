@@ -32,6 +32,7 @@ const ArrivalList = ({arrivals, onRefresh}: Props) => {
     setIsRefreshing(false);
   };
 
+  // If data hasn't been fetched yet
   if (!arrivals) {
     return (
       <View style={styles.loadingView}>
@@ -40,6 +41,7 @@ const ArrivalList = ({arrivals, onRefresh}: Props) => {
     );
   }
 
+  // If there are no arrivals at this station
   if (!arrivals.eta) {
     return (
       <View style={styles.loadingView}>
