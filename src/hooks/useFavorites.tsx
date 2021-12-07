@@ -48,7 +48,7 @@ const useFavorites = (
             }
             return acc;
           },
-          {},
+          {} as Favorites,
         );
         await AsyncStorage.setItem(
           FAVORITES_LOCAL_STORAGE_KEY,
@@ -75,8 +75,7 @@ const useFavorites = (
   const removeFavorite = (id: string) => {
     setIsSettingFavorites(true);
     setFavorites(f => {
-      delete f[id];
-      return {...f};
+      return {...f, [id]: false};
     });
     setTimeout(() => setIsSettingFavorites(false), 500);
   };
