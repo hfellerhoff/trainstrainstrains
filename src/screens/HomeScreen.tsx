@@ -13,7 +13,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 const HomeScreen = ({navigation}: Props) => {
   useEffect(() => {
     SplashScreen.hide();
-    }, []);
+  }, []);
   const {favorites} = useFavorites({shouldSyncWithLocalStorage: true});
 
   const hasFavorites = Object.values(favorites).length > 0;

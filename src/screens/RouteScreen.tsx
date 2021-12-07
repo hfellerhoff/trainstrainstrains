@@ -6,7 +6,7 @@ import {
   View,
   ListRenderItem,
   Platform,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import {StationData} from '../api/chicago/getAllStations';
 import {searchForStations} from '../api/chicago/searchForStations';
@@ -20,6 +20,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Route'>;
 const RouteScreen = ({navigation, route}: Props) => {
   const [searchData, setSearchData] = useState<StationData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const backgroundColor = Colors.lines[route.params.route.toLowerCase()];
 
   useEffect(() => {
     const handleSearch = async () => {
@@ -43,7 +45,7 @@ const RouteScreen = ({navigation, route}: Props) => {
     navigation.setOptions({
       title: `${route.params.route} Line`,
       headerStyle: {
-        backgroundColor: Colors.lines[route.params.route.toLowerCase()],
+        backgroundColor,
       },
       headerTitleStyle: {
         color: route.params.route !== 'Yellow' ? 'white' : 'black',
@@ -65,7 +67,12 @@ const RouteScreen = ({navigation, route}: Props) => {
 
   return (
     <View>
-      <StatusBar barStyle={route.params.route !== 'Yellow' ? 'light-content' : 'dark-content'} backgroundColor={Colors.primary} />
+      <StatusBar
+        barStyle={
+          route.params.route !== 'Yellow' ? 'light-content' : 'dark-content'
+        }
+        backgroundColor={backgroundColor}
+      />
       {isLoading ? <Loading /> : <></>}
       <FlatList
         data={searchData}

@@ -4,7 +4,6 @@ import {StyleSheet, View, StatusBar} from 'react-native';
 import {ArrivalData, getArrivalsByMapID} from '../api/cta/getArrivalsByMapID';
 import ArrivalList from '../components/ArrivalList';
 import {RootStackParamList} from '../navigation';
-import {Colors} from '../styles/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Station'>;
 
@@ -26,7 +25,7 @@ const StationScreen = ({route, navigation}: Props) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={Colors.primary} />
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
       <ArrivalList arrivals={arrivals} onRefresh={updateArrivals} />
     </View>
   );
