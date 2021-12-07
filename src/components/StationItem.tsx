@@ -107,6 +107,8 @@ const styles = StyleSheet.create({
   },
   itemPressable: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     flex: 1,
   },
   itemTitleContainer: {
