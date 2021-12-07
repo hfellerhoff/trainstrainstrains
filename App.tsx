@@ -9,6 +9,7 @@ import Button from './src/components/core/Button';
 import {Search} from 'react-native-feather';
 import {StyleSheet} from 'react-native';
 import SearchScreen from './src/screens/SearchScreen';
+import RouteScreen from './src/screens/RouteScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -34,6 +35,13 @@ export default function App() {
         <Stack.Screen name="Screen 2" component={TestScreen} />
         <Stack.Screen name="Station" component={StationScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen
+          name="Route"
+          component={RouteScreen}
+          options={{
+            headerTintColor: 'white',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

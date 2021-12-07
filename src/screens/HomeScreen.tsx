@@ -1,14 +1,17 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Pressable} from 'react-native';
 import {RootStackParamList} from '../navigation';
 import useFavorites from '../hooks/useFavorites';
 import StationItem from '../components/StationItem';
+import {Colors} from '../styles/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({navigation}: Props) => {
   const {favorites} = useFavorites({shouldSyncWithLocalStorage: true});
+
+  console.log(favorites);
 
   return (
     <View style={styles.container}>
@@ -25,6 +28,18 @@ const HomeScreen = ({navigation}: Props) => {
       {Object.entries(favorites).map(([map_id]) => (
         <StationItem map_id={map_id} navigation={navigation} key={map_id} />
       ))}
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionHeaderText}>Pick by Route</Text>
+      </View>
+
+      <Pressable
+        style={styles.routeSelect}
+        onPress={() =>
+          navigation.navigate('Route', {
+            route: 'Purple',
+          })
+        }
+      />
     </View>
   );
 };
@@ -63,5 +78,19 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  sectionHeader: {
+    alignItems: 'center',
+    backgroundColor: Colors.primary,
+  },
+  sectionHeaderText: {
+    color: '#ffffff',
+    fontSize: 18,
+    padding: 16,
+    fontWeight: 'bold',
+  },
+  routeSelect: {
+    height: '15%',
+    backgroundColor: 'purple',
   },
 });
