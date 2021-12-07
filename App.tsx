@@ -27,7 +27,7 @@ export default function App() {
                 onPress={() => navigation.navigate('Search')}
                 variant="ghost"
                 style={styles.searchButton}>
-                <Search color="black" width={24} height={24} />
+                <Search color="white" width={24} height={24} />
               </Button>
             ),
             title: 'Trains Trains Trains',
@@ -38,21 +38,26 @@ export default function App() {
           })}
         />
         <Stack.Screen name="Screen 2" component={TestScreen} />
-        <Stack.Screen name="Station" component={StationScreen} 
-        options={{
-          headerTintColor: 'white',
-          headerStyle: {
-            backgroundColor: Colors.primary,
-          },
-        }}
+        <Stack.Screen
+          name="Station"
+          component={StationScreen}
+          options={{
+            headerTintColor: 'white',
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
+          }}
         />
-        <Stack.Screen name="Search" component={SearchScreen} 
-        options={{
-          headerTintColor: 'white',
-          headerStyle: {
-            backgroundColor: Colors.primary,
-          },
-        }}/>
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            headerTintColor: 'white',
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
+          }}
+        />
         <Stack.Screen
           name="Route"
           component={RouteScreen}
