@@ -6,6 +6,7 @@ import {
   View,
   ListRenderItem,
   Platform,
+  StatusBar
 } from 'react-native';
 import {StationData} from '../api/chicago/getAllStations';
 import {searchForStations} from '../api/chicago/searchForStations';
@@ -60,6 +61,7 @@ const RouteScreen = ({navigation, route}: Props) => {
 
   return (
     <View>
+      <StatusBar barStyle={route.params.route !== 'Yellow' ? 'light-content' : 'dark-content'} backgroundColor={Colors.primary} />
       {isLoading ? <Loading /> : <></>}
       <FlatList
         data={searchData}

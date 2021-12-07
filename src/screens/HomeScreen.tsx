@@ -1,20 +1,25 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text, ScrollView, StatusBar} from 'react-native';
 import {RootStackParamList} from '../navigation';
 import useFavorites from '../hooks/useFavorites';
 import StationItem from '../components/StationItem';
 import {Colors} from '../styles/colors';
 import RouteItem from '../components/RouteItem';
+import SplashScreen from 'react-native-splash-screen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({navigation}: Props) => {
+  useEffect(() => {
+    SplashScreen.hide();
+    }, []);
   const {favorites} = useFavorites({shouldSyncWithLocalStorage: true});
 
   const hasFavorites = Object.values(favorites).length > 0;
   return (
     <ScrollView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={Colors.primary} />
       {hasFavorites && (
         <>
           <Text style={styles.listSectionText}>Favorites</Text>

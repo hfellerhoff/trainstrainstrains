@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderBottomColor: 'gray',
     borderBottomWidth: 0.25,
-    marginBottom: 1,
+    marginBottom: 0,
   },
   routeText: {
     fontWeight: 'bold',
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginLeft: 11,
   },
   routeStrip: {
-    width: 5,
+    width: 10,
     height: '100%',
   },
 });
