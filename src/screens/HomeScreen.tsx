@@ -19,7 +19,7 @@ const HomeScreen = ({navigation}: Props) => {
         <StationItem map_id={map_id} navigation={navigation} key={map_id} />
       ))}
       <View>
-        <Text style={styles.listSectionText}>Pick by Route</Text>
+        <Text style={styles.listSectionText}>All Lines</Text>
       </View>
 
       <RouteItem routeName="Red" navigation={navigation} />
