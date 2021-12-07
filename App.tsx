@@ -38,16 +38,7 @@ export default function App() {
           })}
         />
         <Stack.Screen name="Screen 2" component={TestScreen} />
-        <Stack.Screen
-          name="Station"
-          component={StationScreen}
-          options={{
-            headerTintColor: 'white',
-            headerStyle: {
-              backgroundColor: Colors.primary,
-            },
-          }}
-        />
+        <Stack.Screen name="Station" component={StationScreen} />
         <Stack.Screen
           name="Search"
           component={SearchScreen}
