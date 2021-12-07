@@ -1,46 +1,37 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {StyleSheet, View, Text, Pressable} from 'react-native';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import {RootStackParamList} from '../navigation';
 import useFavorites from '../hooks/useFavorites';
 import StationItem from '../components/StationItem';
 import {Colors} from '../styles/colors';
+import RouteItem from '../components/RouteItem';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({navigation}: Props) => {
   const {favorites} = useFavorites({shouldSyncWithLocalStorage: true});
 
-  console.log(favorites);
-
   return (
-    <View style={styles.container}>
-      {/* <Button
-        title="Go to Station View"
-        onPress={() =>
-          navigation.navigate('Station', {
-            mapID: '40380',
-            title: 'Clark/Lake',
-          })
-        }
-      /> */}
+    <ScrollView style={styles.container}>
       <Text style={styles.listSectionText}>Favorites</Text>
       {Object.entries(favorites).map(([map_id]) => (
         <StationItem map_id={map_id} navigation={navigation} key={map_id} />
       ))}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionHeaderText}>Pick by Route</Text>
+      {/* ScrollView */}
+      <View>
+        <Text style={styles.listSectionText}>Pick by Route</Text>
       </View>
 
-      <Pressable
-        style={styles.routeSelect}
-        onPress={() =>
-          navigation.navigate('Route', {
-            route: 'Purple',
-          })
-        }
-      />
-    </View>
+      <RouteItem routeName="Red" navigation={navigation} />
+      <RouteItem routeName="Blue" navigation={navigation} />
+      <RouteItem routeName="Brown" navigation={navigation} />
+      <RouteItem routeName="Green" navigation={navigation} />
+      <RouteItem routeName="Orange" navigation={navigation} />
+      <RouteItem routeName="Pink" navigation={navigation} />
+      <RouteItem routeName="Purple" navigation={navigation} />
+      <RouteItem routeName="Yellow" navigation={navigation} />
+    </ScrollView>
   );
 };
 
