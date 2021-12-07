@@ -18,7 +18,6 @@ const HomeScreen = ({navigation}: Props) => {
       {Object.entries(favorites).map(([map_id]) => (
         <StationItem map_id={map_id} navigation={navigation} key={map_id} />
       ))}
-      {/* ScrollView */}
       <View>
         <Text style={styles.listSectionText}>Pick by Route</Text>
       </View>
