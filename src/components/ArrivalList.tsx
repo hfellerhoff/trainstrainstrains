@@ -40,6 +40,14 @@ const ArrivalList = ({arrivals, onRefresh}: Props) => {
     );
   }
 
+  if (!arrivals.eta) {
+    return (
+      <View style={styles.loadingView}>
+        <Text>No arrivals found.</Text>
+      </View>
+    );
+  }
+
   function getSections(
     arr: any[],
   ): SectionListData<ArrivalDataETA, DefaultSectionT>[] {
@@ -102,6 +110,8 @@ export default ArrivalList;
 const styles = StyleSheet.create({
   loadingView: {
     padding: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   list: {
     height: '100%',
