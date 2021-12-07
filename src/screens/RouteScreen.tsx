@@ -45,6 +45,10 @@ const RouteScreen = ({navigation, route}: Props) => {
       headerStyle: {
         backgroundColor: Colors.lines[route.params.route.toLowerCase()],
       },
+      headerTitleStyle: {
+        color: route.params.route !== 'Yellow' ? 'white' : 'black',
+        fontSize: 18,
+      },
       headerTintColor: route.params.route !== 'Yellow' ? 'white' : 'black',
     });
     handleSearch();

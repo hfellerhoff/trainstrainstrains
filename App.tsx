@@ -35,10 +35,24 @@ export default function App() {
             headerStyle: {
               backgroundColor: Colors.primary,
             },
+            headerTitleStyle: {
+              color: '#fff',
+              fontSize: 18,
+            },
           })}
         />
         <Stack.Screen name="Screen 2" component={TestScreen} />
-        <Stack.Screen name="Station" component={StationScreen} />
+        <Stack.Screen name="Station" component={StationScreen} 
+        options={{
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+          headerTitleStyle: {
+            color: '#fff',
+            fontSize: 18,
+          },
+          headerTintColor: 'white',
+        }}/>
         <Stack.Screen
           name="Search"
           component={SearchScreen}
@@ -46,6 +60,10 @@ export default function App() {
             headerTintColor: 'white',
             headerStyle: {
               backgroundColor: Colors.primary,
+            },
+            headerTitleStyle: {
+              color: '#fff',
+              fontSize: 18,
             },
           }}
         />
