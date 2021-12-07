@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "dayjs": "^1.10.7",
@@ -21,7 +22,9 @@
     "react-native-screens": "^3.8.0",
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^9.0.0",
-    "react-xml-parser": "^1.1.8"
+    "react-xml-parser": "^1.1.8",
+    "recoil": "^0.5.2",
+    "save": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

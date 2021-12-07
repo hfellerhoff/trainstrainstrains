@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
@@ -13,48 +12,18 @@ import {
 } from 'react-native';
 import {ArrivalData, ArrivalDataETA} from '../api/cta/getArrivalsByMapID';
 import {getFullRouteName} from '../api/util/getFullRouteName';
-import {getBackgroundFromRoute} from '../styles/utils/getBackgroundFromRoute';
-import {getColorFromRoute} from '../styles/utils/getColorFromRoute';
-import Icon from 'react-native-vector-icons/Ionicons';
+import ArrivalItem from './ArrivalItem';
 
 interface Props {
   arrivals: ArrivalData | undefined;
   onRefresh: () => Promise<void>;
 }
 
-type ItemProps = {
-  eta: ArrivalDataETA;
-};
-const ArrivalListItem = ({eta}: ItemProps) => {
-  const [favorite, setFavorite] = useState("star-outline");
-  const now = dayjs();
-  const arrivalTime = dayjs(eta.arrT);
-  const minutesUntil = arrivalTime.diff(now, 'm');
-
-  const timeUntilText =
-    minutesUntil < 0
-      ? `Late ${-minutesUntil} min`
-      : minutesUntil === 0
-      ? 'Due'
-      : `${minutesUntil} min`;
-
-  const backgroundStyle = getBackgroundFromRoute(eta.rt);
-  const textStyle = getColorFromRoute(eta.rt);
-
-  return (
-    <View style={[styles.listItem, backgroundStyle]}>
-      <Icon name={favorite} size={20} color="#fcb103" style={styles.star} onPress={()=> {if (favorite === "star-outline") {setFavorite("star")} else {setFavorite("star-outline")}}}/>
-      <Text style={[styles.listItemText, textStyle]}>{eta.destNm}</Text>
-      <Text style={[styles.listItemText, textStyle]}>{timeUntilText}</Text>
-    </View>
-  );
-};
-
 const ArrivalList = ({arrivals, onRefresh}: Props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const renderItem: ListRenderItem<ArrivalDataETA> = ({item}) => (
-    <ArrivalListItem eta={item as ArrivalDataETA} />
+    <ArrivalItem eta={item as ArrivalDataETA} key={item.arrT} />
   );
 
   const handleRefresh = async () => {
@@ -145,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   star: {
-    paddingRight:10,
+    paddingRight: 10,
   },
   listItem: {
     flexDirection: 'row',

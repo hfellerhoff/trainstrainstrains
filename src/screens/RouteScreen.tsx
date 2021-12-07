@@ -1,33 +1,53 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   StyleSheet,
-  TextInput,
   View,
   ListRenderItem,
   Platform,
 } from 'react-native';
-import {Search} from 'react-native-feather';
 import {StationData} from '../api/chicago/getAllStations';
 import {searchForStations} from '../api/chicago/searchForStations';
 import Loading from '../components/Loading';
 import {RootStackParamList} from '../navigation';
 import StationItem from '../components/StationItem';
+import {Colors} from '../styles/colors';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Route'>;
 
-const SearchScreen = ({navigation}: Props) => {
-  const [searchInput, setSearchInput] = useState('');
+const RouteScreen = ({navigation, route}: Props) => {
   const [searchData, setSearchData] = useState<StationData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = async () => {
-    setIsLoading(true);
-    const data = await searchForStations(searchInput);
-    setSearchData(data);
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    const handleSearch = async () => {
+      setIsLoading(true);
+      const data = await searchForStations(route.params.route);
+      setSearchData(
+        data.sort((a, b) => {
+          if (
+            a.location.latitude + a.location.longitude >
+            b.location.latitude + b.location.longitude
+          ) {
+            return -1;
+          } else {
+            return 1;
+          }
+        }),
+      );
+      setIsLoading(false);
+    };
+
+    navigation.setOptions({
+      title: `${route.params.route} Line`,
+      headerStyle: {
+        backgroundColor: Colors.lines[route.params.route.toLowerCase()],
+      },
+      headerTintColor: route.params.route !== 'Yellow' ? 'white' : 'black',
+    });
+    handleSearch();
+  }, []);
 
   const renderItem: ListRenderItem<StationData> = ({item}) => (
     <StationItem
@@ -40,23 +60,6 @@ const SearchScreen = ({navigation}: Props) => {
 
   return (
     <View>
-      <View style={styles.searchInput}>
-        <Search
-          color="black"
-          width={18}
-          height={18}
-          style={styles.searchIcon}
-        />
-        <TextInput
-          placeholder="Red Line, Lake, Howard..."
-          returnKeyType="search"
-          value={searchInput}
-          onChangeText={setSearchInput}
-          onSubmitEditing={handleSearch}
-          autoCorrect={false}
-          autoFocus
-        />
-      </View>
       {isLoading ? <Loading /> : <></>}
       <FlatList
         data={searchData}
@@ -68,7 +71,7 @@ const SearchScreen = ({navigation}: Props) => {
   );
 };
 
-export default SearchScreen;
+export default RouteScreen;
 
 const styles = StyleSheet.create({
   searchInput: {
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   searchList: {
-    marginBottom: 80,
+    marginBottom: Platform.OS === 'ios' ? 32 : 0,
   },
   star: {
     paddingRight: 10,

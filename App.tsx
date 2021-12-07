@@ -9,6 +9,8 @@ import Button from './src/components/core/Button';
 import {Search} from 'react-native-feather';
 import {StyleSheet} from 'react-native';
 import SearchScreen from './src/screens/SearchScreen';
+import RouteScreen from './src/screens/RouteScreen';
+import {Colors} from './src/styles/colors';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -25,15 +27,35 @@ export default function App() {
                 onPress={() => navigation.navigate('Search')}
                 variant="ghost"
                 style={styles.searchButton}>
-                <Search color="black" width={24} height={24} />
+                <Search color="white" width={24} height={24} />
               </Button>
             ),
             title: 'Trains Trains Trains',
+            headerTintColor: 'white',
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
           })}
         />
         <Stack.Screen name="Screen 2" component={TestScreen} />
         <Stack.Screen name="Station" component={StationScreen} />
-        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            headerTintColor: 'white',
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Route"
+          component={RouteScreen}
+          options={{
+            headerTintColor: 'white',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

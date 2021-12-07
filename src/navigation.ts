@@ -7,4 +7,7 @@ export type RootStackParamList = {
     title: string;
   };
   Search: undefined;
+  Route: {
+    route: string;
+  };
 };
