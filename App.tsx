@@ -6,11 +6,12 @@ import TestScreen from './src/screens/TestScreen';
 import {RootStackParamList} from './src/navigation';
 import StationScreen from './src/screens/StationScreen';
 import Button from './src/components/core/Button';
-import {Search} from 'react-native-feather';
-import {StyleSheet} from 'react-native';
+import {Search, Map} from 'react-native-feather';
+import {StyleSheet, View} from 'react-native';
 import SearchScreen from './src/screens/SearchScreen';
 import RouteScreen from './src/screens/RouteScreen';
 import {Colors} from './src/styles/colors';
+import MapScreen from './src/screens/MapScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,12 +24,20 @@ export default function App() {
           component={HomeScreen}
           options={({navigation}) => ({
             headerRight: () => (
-              <Button
-                onPress={() => navigation.navigate('Search')}
-                variant="ghost"
-                style={styles.searchButton}>
-                <Search color="white" width={24} height={24} />
-              </Button>
+              <View style={styles.headerButtonContainer}>
+                <Button
+                  onPress={() => navigation.navigate('Map')}
+                  variant="ghost"
+                  style={styles.searchButton}>
+                  <Map color="white" width={24} height={24} />
+                </Button>
+                <Button
+                  onPress={() => navigation.navigate('Search')}
+                  variant="ghost"
+                  style={styles.searchButton}>
+                  <Search color="white" width={24} height={24} />
+                </Button>
+              </View>
             ),
             title: 'Trains Trains Trains',
             headerTintColor: 'white',
@@ -64,6 +73,21 @@ export default function App() {
             headerTintColor: 'white',
           }}
         />
+        <Stack.Screen
+          name="Map"
+          component={MapScreen}
+          options={{
+            headerTintColor: 'white',
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
+            headerTitleStyle: {
+              color: '#fff',
+              fontSize: 18,
+            },
+            title: 'Station Map',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -78,5 +102,9 @@ const styles = StyleSheet.create({
   searchButton: {
     padding: 4,
     margin: 0,
+    marginLeft: 8,
+  },
+  headerButtonContainer: {
+    flexDirection: 'row',
   },
 });

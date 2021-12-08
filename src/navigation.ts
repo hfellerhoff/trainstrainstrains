@@ -10,4 +10,5 @@ export type RootStackParamList = {
   Route: {
     route: string;
   };
+  Map: undefined;
 };

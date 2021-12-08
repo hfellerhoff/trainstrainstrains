@@ -16,3 +16,5 @@ Steps to build:
   - Make sure Android Studio is installed!
   - Make sure an emulator is set up in AVD in Android Studio
   - Launch emulator and build: `yarn android`
+
+TODO: Need an ios user to do this: https://github.com/react-native-geolocation/react-native-geolocation#ios

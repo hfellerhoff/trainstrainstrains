@@ -11,12 +11,14 @@ import SplashScreen from 'react-native-splash-screen';
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({navigation}: Props) => {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
   const {favorites} = useFavorites({shouldSyncWithLocalStorage: true});
 
   const hasFavorites = Object.values(favorites).length > 0;
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={Colors.primary} />
@@ -48,7 +50,8 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    // padding: 16,
+    position: 'relative',
+    flex: 1,
   },
   loadingView: {
     padding: 32,
